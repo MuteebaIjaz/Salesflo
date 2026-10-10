@@ -1,5 +1,5 @@
 // SalesFlo Contact Form Webhook Handler
-const WEBHOOK_URL = "https://muteebaijaz.app.n8n.cloud/webhook-test/salesflo-lead-capture";
+const WEBHOOK_URL = "https://muteebaijaz.app.n8n.cloud/webhook/salesflo-lead-capture";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");

@@ -5,7 +5,7 @@ import type { ContactFormData, LeadPayload, SubmissionResult } from '../types/le
  */
 export const WEBHOOK_URL =
   import.meta.env.VITE_N8N_WEBHOOK_URL ||
-  'https://muteebaijaz.app.n8n.cloud/webhook-test/salesflo-lead-capture';
+  'https://muteebaijaz.app.n8n.cloud/webhook/salesflo-lead-capture';
 
 /**
  * Submits lead data to the configured n8n Webhook URL.
