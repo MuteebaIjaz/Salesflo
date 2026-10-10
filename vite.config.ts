@@ -1,7 +1,79 @@
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react';
+import { defineConfig, loadEnv, type Plugin } from 'vite';
+
+const FIELDS = [
+  "name",
+  "email",
+  "phone",
+  "company",
+  "service",
+  "budget_range",
+  "message",
+  "consent",
+  "source",
+  "lead_source",
+];
+
+// Lightweight Vite dev middleware to emulate netlify/functions/submit-lead locally during `npm run dev`
+function netlifyFunctionDevPlugin(webhookUrl?: string, apiKey?: string): Plugin {
+  return {
+    name: 'netlify-function-dev-proxy',
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        if (req.url === '/.netlify/functions/submit-lead' && req.method === 'POST') {
+          let body = '';
+          req.on('data', (chunk) => {
+            body += chunk;
+          });
+
+          req.on('end', async () => {
+            try {
+              const data = JSON.parse(body);
+              const payload: Record<string, unknown> = {};
+              for (const key of FIELDS) {
+                const value = data[key];
+                payload[key] = typeof value === 'string' ? value.slice(0, 2000) : value;
+              }
+
+              const targetUrl = webhookUrl || 'https://muteebaijaz.app.n8n.cloud/webhook/salesflo-lead-capture';
+              const headers: Record<string, string> = {
+                'Content-Type': 'application/json',
+              };
+              if (apiKey) {
+                headers['x-api-key'] = apiKey;
+              }
+
+              const forwardRes = await fetch(targetUrl, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify(payload),
+              });
+
+              res.setHeader('Content-Type', 'application/json');
+              res.statusCode = forwardRes.ok ? 200 : 502;
+              res.end(JSON.stringify({ success: forwardRes.ok }));
+            } catch (err) {
+              console.error('[Vite Netlify Proxy Dev Error]:', err);
+              res.setHeader('Content-Type', 'application/json');
+              res.statusCode = 502;
+              res.end(JSON.stringify({ success: false }));
+            }
+          });
+          return;
+        }
+        next();
+      });
+    },
+  };
+}
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
-})
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  return {
+    plugins: [
+      react(),
+      netlifyFunctionDevPlugin(env.N8N_WEBHOOK_URL, env.N8N_API_KEY),
+    ],
+  };
+});

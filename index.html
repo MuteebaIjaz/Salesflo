@@ -21,10 +21,8 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- SalesFlo n8n Webhook Contact Form Handler -->
+    <!-- SalesFlo Serverless Contact Form Handler -->
     <script>
-      const WEBHOOK_URL = "https://muteebaijaz.app.n8n.cloud/webhook/salesflo-lead-capture";
-
       document.addEventListener("DOMContentLoaded", () => {
         const form = document.getElementById("contactForm");
         if (!form) return;
@@ -39,7 +37,7 @@
 
           if (status) status.textContent = "Sending...";
           try {
-            const res = await fetch(WEBHOOK_URL, {
+            const res = await fetch("/.netlify/functions/submit-lead", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(data),

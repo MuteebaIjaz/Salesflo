@@ -6,7 +6,6 @@ import {
   Loader2,
   CheckCircle2,
   AlertCircle,
-  HelpCircle,
 } from 'lucide-react';
 import type { ContactFormData, SubmissionResult } from '../types/lead';
 import {
@@ -89,25 +88,8 @@ export const ContactForm: React.FC<ContactFormProps> = ({
     }
   };
 
-  const hasConfigNotice =
-    submissionState.result?.isConfigurationError ||
-    !import.meta.env.VITE_N8N_WEBHOOK_URL;
-
   return (
     <div className="bg-white rounded-2xl border border-[#E7E4DD] p-6 sm:p-8 shadow-card relative">
-      {/* Dev Configuration Banner if Webhook URL is missing */}
-      {hasConfigNotice && (
-        <div className="mb-6 p-4 rounded-xl bg-[#F4E8D3]/60 border border-[#B58B48]/30 flex items-start gap-3">
-          <HelpCircle className="w-5 h-5 text-[#B58B48] shrink-0 mt-0.5" />
-          <div className="text-xs text-[#142438] leading-relaxed">
-            <span className="font-semibold text-[#142438] block mb-0.5">
-              Ready for n8n Webhook:
-            </span>
-            Add your n8n Production Webhook URL to <code className="bg-white/80 px-1 py-0.5 rounded font-mono text-[11px] border border-[#E7E4DD]">.env</code> as <code className="bg-white/80 px-1 py-0.5 rounded font-mono text-[11px] border border-[#E7E4DD]">VITE_N8N_WEBHOOK_URL</code> to test live lead ingestion.
-          </div>
-        </div>
-      )}
-
       {/* Success Banner */}
       {submissionState.result?.success && (
         <div
