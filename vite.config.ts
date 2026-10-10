@@ -35,7 +35,6 @@ function netlifyFunctionDevPlugin(webhookUrl?: string, apiKey?: string): Plugin 
                 payload[key] = typeof value === 'string' ? value.slice(0, 2000) : value;
               }
 
-              const targetUrl = webhookUrl || 'https://muteebaijaz.app.n8n.cloud/webhook/salesflo-lead-capture';
               const headers: Record<string, string> = {
                 'Content-Type': 'application/json',
               };
@@ -43,7 +42,15 @@ function netlifyFunctionDevPlugin(webhookUrl?: string, apiKey?: string): Plugin 
                 headers['x-api-key'] = apiKey;
               }
 
-              const forwardRes = await fetch(targetUrl, {
+              if (!webhookUrl) {
+                console.warn('[Vite Netlify Proxy Dev]: N8N_WEBHOOK_URL is not configured in .env');
+                res.setHeader('Content-Type', 'application/json');
+                res.statusCode = 500;
+                res.end(JSON.stringify({ error: 'N8N_WEBHOOK_URL not configured in .env' }));
+                return;
+              }
+
+              const forwardRes = await fetch(webhookUrl, {
                 method: 'POST',
                 headers,
                 body: JSON.stringify(payload),
