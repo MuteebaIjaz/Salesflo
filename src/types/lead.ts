@@ -76,6 +76,7 @@ export interface LeadPayload {
   budget_range?: string | null;
   message: string;
   lead_source: 'Website';
+  source?: string;
   consent?: boolean;
 }
 

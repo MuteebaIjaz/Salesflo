@@ -150,6 +150,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
       )}
 
       <form
+        id="contactForm"
         onSubmit={handleSubmit(onSubmit)}
         noValidate
         aria-label="SalesFlo Lead Inquiry Form"
@@ -354,11 +355,21 @@ export const ContactForm: React.FC<ContactFormProps> = ({
           )}
         </div>
 
-        {/* Hidden lead_source field */}
+        {/* Hidden lead_source and source fields */}
         <input type="hidden" value="Website" {...register('lead_source')} />
+        <input type="hidden" value="website-contact-form" name="source" />
+
+        {/* Status indicator matching id="formStatus" */}
+        <div id="formStatus" className="text-center text-xs min-h-[16px] transition-all">
+          {submissionState.isSubmitting && (
+            <span className="text-[#B58B48] font-medium flex items-center justify-center gap-1.5">
+              <Loader2 className="w-3.5 h-3.5 animate-spin" /> Sending...
+            </span>
+          )}
+        </div>
 
         {/* Full-width Submit CTA */}
-        <div className="pt-2">
+        <div className="pt-1">
           <button
             type="submit"
             disabled={submissionState.isSubmitting}
@@ -367,7 +378,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             {submissionState.isSubmitting ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                <span>Sending Inquiry...</span>
+                <span>Sending...</span>
               </>
             ) : (
               <>
