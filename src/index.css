@@ -6,12 +6,23 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    color: #142438;
-    background-color: #F8F7F3;
+    color: #101E2D;
+    background-color: #F6F4EF;
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+    background-color: #F6F4EF;
+    color: #101E2D;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
   }
 }
 
@@ -20,17 +31,82 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F8F7F3;
+  background: #F6F4EF;
 }
 ::-webkit-scrollbar-thumb {
   background: #D9C298;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #B58B48;
+  background: #B88C46;
 }
 
-/* Reduced motion preference */
+/* Custom utility styles */
+.badge-pill {
+  box-shadow: 0 10px 25px -5px rgba(16, 30, 45, 0.08), 0 8px 10px -6px rgba(16, 30, 45, 0.04);
+}
+
+/* ==========================================================================
+   Scroll-Triggered Reveal Transitions
+   ========================================================================== */
+
+:root {
+  --reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --reveal-duration-default: 720ms;
+}
+
+/* Base reveal item state before viewport entry */
+.reveal-init {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: var(--reveal-duration, var(--reveal-duration-default));
+  transition-timing-function: var(--reveal-ease);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+/* 1. Fade Up: 24-32px travel distance */
+.reveal-fade-up {
+  transform: translateY(28px);
+}
+
+/* 2. Fade In: in-place opacity transition */
+.reveal-fade-in {
+  transform: translateY(0);
+}
+
+/* 3. Slide In Left: subtle 28px travel */
+.reveal-slide-left {
+  transform: translateX(-28px);
+}
+
+/* 4. Slide In Right: subtle 28px travel */
+.reveal-slide-right {
+  transform: translateX(28px);
+}
+
+/* Natural vertical sequence on mobile to prevent any horizontal overflow */
+@media (max-width: 640px) {
+  .reveal-slide-left,
+  .reveal-slide-right {
+    transform: translateY(24px);
+  }
+}
+
+/* Revealed state */
+.reveal-init.is-revealed,
+.is-revealed > .reveal-init,
+.is-revealed .reveal-init {
+  opacity: 1;
+  transform: translate(0, 0) !important;
+}
+
+/* Interactive elements remain unhindered */
+.reveal-init {
+  pointer-events: auto;
+}
+
+/* Accessibility: Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-delay: -1ms !important;
@@ -41,9 +117,10 @@
     transition-duration: 0s !important;
     transition-delay: 0s !important;
   }
-}
-
-/* Custom utility styles */
-.badge-pill {
-  box-shadow: 0 10px 25px -5px rgba(20, 36, 56, 0.08), 0 8px 10px -6px rgba(20, 36, 56, 0.04);
+  .reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
 }

@@ -37,7 +37,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
           onSelectService(service.name);
         }
       }}
-      className="group bg-white rounded-2xl border border-[#E7E4DD] p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover hover:border-[#B58B48]/50 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B58B48]"
+      className="group bg-white rounded-2xl border border-[#E7E4DD] p-7 flex flex-col justify-between h-full shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1.5 hover:border-[#B58B48]/50 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B58B48]"
       aria-label={`Select service: ${service.name}`}
     >
       <div>

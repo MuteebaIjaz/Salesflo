@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Services } from './components/Services';
+import { Portfolio } from './components/Portfolio';
 import { About } from './components/About';
 import { Process } from './components/Process';
 import { Contact } from './components/Contact';
@@ -16,7 +17,7 @@ export function App() {
   const scrollToSection = (sectionId: string, focusInput = false) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const navHeight = 80;
+      const navHeight = 84;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navHeight;
       window.scrollTo({
@@ -40,7 +41,7 @@ export function App() {
 
   // Intersection observer to track current visible section for active navbar link
   useEffect(() => {
-    const sections = ['home', 'services', 'about', 'portfolio', 'process', 'contact'];
+    const sections = ['home', 'services', 'portfolio', 'about', 'process', 'contact'];
     
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
@@ -48,8 +49,7 @@ export function App() {
         const sectionId = sections[i];
         const el = document.getElementById(sectionId);
         if (el && el.offsetTop <= scrollPosition) {
-          // If in portfolio or process, report matching nav highlight
-          setActiveSection(sectionId === 'process' ? 'services' : sectionId);
+          setActiveSection(sectionId);
           break;
         }
       }
@@ -60,40 +60,44 @@ export function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F8F7F3] text-[#142438] flex flex-col selection:bg-[#B58B48]/20 selection:text-[#142438]">
+    <div className="min-h-screen bg-[#F6F4EF] text-[#101E2D] flex flex-col selection:bg-[#B88C46]/20 selection:text-[#101E2D]">
       {/* Sticky Navigation Bar */}
       <Navbar activeSection={activeSection} />
 
       <main className="flex-grow">
-        {/* SECTION 2: HERO BANNER */}
+        {/* 1. HERO BANNER */}
         <Hero
           onStartProject={() => scrollToSection('contact', true)}
-          onExploreServices={() => scrollToSection('services')}
+          onExploreServices={() => scrollToSection('portfolio')}
         />
 
-        {/* SECTION 3: SERVICES */}
+        {/* 2. SERVICES (Asymmetric Bento Grid) */}
         <Services onSelectService={handleSelectService} />
 
-        {/* SECTION 4: ABOUT SALESFLO */}
-        <About
-          onLearnMore={() => scrollToSection('contact')}
+        {/* 3. SELECTED WORK / PORTFOLIO (Large Case Studies) */}
+        <Portfolio
           onExploreProject={(serviceName) => {
             if (serviceName) setSelectedService(serviceName);
             scrollToSection('contact', true);
           }}
         />
 
-        {/* SECTION 5: OUR PROCESS */}
+        {/* 4. ABOUT SALESFLO (Authentic Editorial Narrative) */}
+        <About
+          onLearnMore={() => scrollToSection('contact', true)}
+        />
+
+        {/* 5. HOW WE WORK (Engineering Timeline) */}
         <Process />
 
-        {/* SECTION 6: CONTACT / INQUIRY FORM */}
+        {/* 6. CONTACT / INQUIRY FORM - STRICTLY LOCKED COMPONENT */}
         <Contact
           selectedService={selectedService}
           nameInputRef={nameInputRef}
         />
       </main>
 
-      {/* SECTION 7: FOOTER */}
+      {/* 7. FOOTER */}
       <Footer />
     </div>
   );

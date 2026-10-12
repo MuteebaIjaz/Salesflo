@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { Logo } from './Logo';
 import { siteConfig } from '../config/site';
 import { LegalModal } from './LegalModal';
 import { SocialIcon } from './SocialIcons';
+import { ScrollReveal, ScrollRevealGroup } from './ScrollReveal';
 
 export const Footer: React.FC = () => {
   const [modalState, setModalState] = useState<{
@@ -13,14 +15,15 @@ export const Footer: React.FC = () => {
     type: null,
   });
 
-  const currentYear = new Date().getFullYear();
+  const currentYear = 2026;
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Services', href: '#services' },
-    { name: 'About', href: '#about' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '#home', num: '01' },
+    { name: 'Services', href: '#services', num: '02' },
+    { name: 'Portfolio', href: '#portfolio', num: '03' },
+    { name: 'About', href: '#about', num: '04' },
+    { name: 'Process', href: '#process', num: '05' },
+    { name: 'Contact', href: '#contact', num: '06' },
   ];
 
   const handleNavClick = (
@@ -30,7 +33,7 @@ export const Footer: React.FC = () => {
     e.preventDefault();
     const targetElement = document.querySelector(href);
     if (targetElement) {
-      const navHeight = 80;
+      const navHeight = 84;
       const elementPosition = targetElement.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - navHeight;
       window.scrollTo({
@@ -42,72 +45,124 @@ export const Footer: React.FC = () => {
 
   return (
     <>
-      <footer className="bg-[#101E2D] text-[#CBD5E1] border-t border-[#1E324B]">
-        <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <footer className="bg-[#101E2D] text-[#CBD5E1] border-t border-[#1E324B] overflow-hidden">
+        <ScrollRevealGroup
+          threshold={0.15}
+          className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20"
+        >
           {/* Main Footer Row */}
-          <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 pb-10 border-b border-[#1E324B]/80 text-center md:text-left">
-            {/* Left: Brand & Tagline */}
-            <div className="max-w-sm flex flex-col items-center md:items-start">
-              <Logo isDarkTheme={true} className="mb-3" />
-              <p className="text-xs text-[#94A3B8] leading-relaxed">
-                {siteConfig.tagline}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#1E324B]/80">
+            {/* Left Brand Column (Spans 5) */}
+            <ScrollReveal
+              variant="fade-up"
+              delay={0}
+              className="md:col-span-5 flex flex-col items-start"
+            >
+              <Logo isDarkTheme={true} className="mb-4" />
+              {/* Description: 14px, Line-height 1.6 */}
+              <p className="text-[14px] text-[#CBD5E1] leading-[1.6] max-w-sm mb-6">
+                Boutique digital engineering studio building AI automation, resilient web applications, and enterprise cloud architecture.
               </p>
-            </div>
 
-            {/* Center: Navigation Links */}
-            <nav className="flex flex-wrap items-center justify-center gap-6 text-sm" aria-label="Footer Navigation">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="text-[#CBD5E1] hover:text-[#B58B48] transition-colors"
-                >
-                  {link.name}
-                </a>
-              ))}
-            </nav>
 
-            {/* Right: Social Media Links */}
-            <div className="flex items-center gap-3">
-              {siteConfig.contact.social
-                .filter((s) => s.configured)
-                .map((social) => (
+
+            </ScrollReveal>
+
+            {/* Center Navigation Links (Spans 4) */}
+            <ScrollReveal
+              variant="fade-up"
+              delay={100}
+              as="nav"
+              className="md:col-span-4 flex flex-col"
+              aria-label="Footer Navigation"
+            >
+              {/* Section Label: 12px IBM Plex Mono, uppercase, font-semibold */}
+              <div className="font-mono text-xs uppercase tracking-widest text-[#B88C46] mb-4 font-semibold">
+                SITEMAP NAVIGATION
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-[14px]">
+                {navLinks.map((link) => (
                   <a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-[#142438] border border-[#1E324B] flex items-center justify-center text-[#CBD5E1] hover:text-white hover:bg-[#B58B48] hover:border-[#B58B48] transition-all duration-200"
-                    aria-label={`SalesFlo on ${social.name}`}
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="group text-[#CBD5E1] hover:text-white transition-colors flex items-center gap-1.5 py-1 font-medium"
                   >
-                    <SocialIcon name={social.name} className="w-4 h-4" />
+                    <span className="font-mono text-[11px] text-[#B88C46] opacity-70 group-hover:opacity-100 font-normal">
+                      {link.num}
+                    </span>
+                    <span>{link.name}</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-[#B88C46] transition-opacity" />
                   </a>
                 ))}
-            </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Right Social & Studio Inquiries (Spans 3) */}
+            <ScrollReveal
+              variant="fade-up"
+              delay={200}
+              className="md:col-span-3 flex flex-col"
+            >
+              {/* Section Label: 12px IBM Plex Mono, uppercase, font-semibold */}
+              <div className="font-mono text-xs uppercase tracking-widest text-[#B88C46] mb-4 font-semibold">
+                CONNECT & INQUIRE
+              </div>
+              <p className="text-[13.5px] text-[#CBD5E1] leading-relaxed mb-4">
+                Have a project or integration requirement?
+              </p>
+              <div className="flex items-center gap-2.5 mb-6">
+                {siteConfig.contact.social
+                  .filter((s) => s.configured)
+                  .map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-xl bg-[#182C40] border border-[#253C58] flex items-center justify-center text-[#CBD5E1] hover:text-white hover:bg-[#B88C46] hover:border-[#B88C46] transition-all duration-200"
+                      aria-label={`SalesFlo on ${social.name}`}
+                    >
+                      <SocialIcon name={social.name} className="w-4 h-4" />
+                    </a>
+                  ))}
+              </div>
+              <a
+                href="mailto:hello@salesflo.dev"
+                className="font-mono text-[13px] text-[#CBD5E1] hover:text-white transition-colors"
+              >
+                hello@salesflo.dev
+              </a>
+            </ScrollReveal>
           </div>
 
-          {/* Bottom Row */}
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#94A3B8]">
-            <p>© {currentYear} SalesFlo. All rights reserved.</p>
+          {/* Bottom Copyright & Legal Links Row: 12.5px IBM Plex Mono */}
+          <ScrollReveal
+            variant="fade-up"
+            delay={300}
+            className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[12.5px] font-mono text-[#CBD5E1]"
+          >
+            <p>© {currentYear} SalesFlo Studio. All rights reserved.</p>
             <div className="flex items-center gap-6">
               <button
                 type="button"
                 onClick={() => setModalState({ isOpen: true, type: 'privacy' })}
-                className="hover:text-[#CBD5E1] transition-colors underline-offset-4 hover:underline"
+                className="hover:text-white transition-colors underline-offset-4 hover:underline"
               >
                 Privacy Policy
               </button>
               <button
                 type="button"
                 onClick={() => setModalState({ isOpen: true, type: 'terms' })}
-                className="hover:text-[#CBD5E1] transition-colors underline-offset-4 hover:underline"
+                className="hover:text-white transition-colors underline-offset-4 hover:underline"
               >
                 Terms of Service
               </button>
+              <span className="hidden md:inline text-[#253C58]">|</span>
+              <span className="hidden md:inline text-[#CBD5E1]">Karachi, Pakistan</span>
             </div>
-          </div>
-        </div>
+          </ScrollReveal>
+        </ScrollRevealGroup>
       </footer>
 
       {/* Accessible Policy & Terms Dialog */}
