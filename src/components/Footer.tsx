@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
 import { Logo } from './Logo';
 import { siteConfig } from '../config/site';
 import { LegalModal } from './LegalModal';
@@ -88,11 +87,9 @@ export const Footer: React.FC = () => {
                     onClick={(e) => handleNavClick(e, link.href)}
                     className="group text-[#CBD5E1] hover:text-white transition-colors flex items-center gap-1.5 py-1 font-medium"
                   >
-                    <span className="font-mono text-[11px] text-[#B88C46] opacity-70 group-hover:opacity-100 font-normal">
-                      {link.num}
-                    </span>
+
                     <span>{link.name}</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 text-[#B88C46] transition-opacity" />
+
                   </a>
                 ))}
               </div>

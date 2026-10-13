@@ -31,11 +31,7 @@ export const Process: React.FC = () => {
             </ScrollReveal>
           </div>
 
-          <ScrollReveal variant="fade-in" delay={160} className="max-w-md">
-            <p className="text-[#50647A] text-[16px] leading-[1.65]">
-              A transparent, milestone-driven engineering process designed to eliminate guesswork, reduce risk, and deliver production-ready software.
-            </p>
-          </ScrollReveal>
+    
         </ScrollRevealGroup>
 
         {/* Refined Horizontal Engineering Timeline Layout */}

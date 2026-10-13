@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Services } from './components/Services';
-import { Portfolio } from './components/Portfolio';
 import { About } from './components/About';
 import { Process } from './components/Process';
 import { Contact } from './components/Contact';
@@ -74,13 +73,7 @@ export function App() {
         {/* 2. SERVICES (Asymmetric Bento Grid) */}
         <Services onSelectService={handleSelectService} />
 
-        {/* 3. SELECTED WORK / PORTFOLIO (Large Case Studies) */}
-        <Portfolio
-          onExploreProject={(serviceName) => {
-            if (serviceName) setSelectedService(serviceName);
-            scrollToSection('contact', true);
-          }}
-        />
+      
 
         {/* 4. ABOUT SALESFLO (Authentic Editorial Narrative) */}
         <About

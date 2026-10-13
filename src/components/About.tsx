@@ -1,7 +1,8 @@
 import React from 'react';
-import { ArrowUpRight, FolderCheck, Smile, Clock, ShieldCheck, Terminal, Compass, Users } from 'lucide-react';
+import { ArrowUpRight, FolderCheck, Smile, Clock } from 'lucide-react';
 import { siteConfig } from '../config/site';
 import { ScrollReveal, ScrollRevealGroup } from './ScrollReveal';
+import aboutImg from '../assets/about.jpg';
 
 interface AboutProps {
   onLearnMore: () => void;
@@ -20,78 +21,28 @@ export const About: React.FC<AboutProps> = ({ onLearnMore }) => {
           threshold={0.15}
           className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center"
         >
-          {/* Left Column: Authentic Architectural Blueprint & Engineering Philosophy Visual */}
+          {/* Left Column: Authentic Engineering Team & Architecture Workspace Visual */}
           <ScrollReveal
             variant="slide-left"
             delay={100}
             className="lg:col-span-5 relative"
           >
-            <div className="relative rounded-3xl bg-[#101E2D] p-8 sm:p-10 border border-[#1E324B] shadow-elevated text-white overflow-hidden">
-              {/* Gold gradient glow */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#B88C46]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative mx-auto w-full max-w-[540px]">
+              {/* Ambient lighting glow behind frame */}
+              <div className="absolute -inset-2 bg-gradient-to-tr from-[#B88C46]/20 via-[#101E2D]/10 to-[#B88C46]/10 rounded-3xl blur-xl -z-10 opacity-70" />
 
-              {/* Header */}
-              <div className="flex items-center justify-between border-b border-[#1E324B] pb-4 mb-6">
-                <span className="font-mono text-xs font-semibold text-[#B88C46] tracking-wider uppercase">
-                  ENGINEERING PHILOSOPHY
-                </span>
-                <span className="font-mono text-[11px] text-[#CBD5E1]">
-                  DOC: 2026.04
-                </span>
-              </div>
-
-              {/* Core Principles */}
-              <div className="space-y-5 mb-8">
-                <div className="flex items-start gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#182C40] border border-[#253C58] flex items-center justify-center text-[#B88C46] shrink-0 mt-0.5">
-                    <Terminal className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="font-heading text-[15px] font-bold text-white mb-1">
-                      Direct Senior Engineer Access
-                    </h4>
-                    <p className="text-[13.5px] text-[#CBD5E1] leading-[1.6]">
-                      No intermediaries or account managers. You collaborate directly with the engineers building your systems.
-                    </p>
-                  </div>
+              {/* Main Image Architectural Frame */}
+              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-[#101E2D] p-2 sm:p-2.5 shadow-2xl border border-[#1E324B]/70 group">
+                <div className="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-[16/10] sm:aspect-[4/3] lg:aspect-[16/11] bg-[#101E2D]">
+                  <img
+                    src={aboutImg}
+                    alt="SalesFlo Engineering Team collaborating on whiteboard architecture and code"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  {/* Subtle inner gradient overlay for depth */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#101E2D]/40 via-transparent to-transparent pointer-events-none" />
                 </div>
-
-                <div className="flex items-start gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#182C40] border border-[#253C58] flex items-center justify-center text-[#B88C46] shrink-0 mt-0.5">
-                    <ShieldCheck className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="font-heading text-[15px] font-bold text-white mb-1">
-                      Production Resilience
-                    </h4>
-                    <p className="text-[13.5px] text-[#CBD5E1] leading-[1.6]">
-                      We engineer software for edge cases, error handling, and mission-critical uptime, not just sunny-day demos.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3.5">
-                  <div className="w-8 h-8 rounded-lg bg-[#182C40] border border-[#253C58] flex items-center justify-center text-[#B88C46] shrink-0 mt-0.5">
-                    <Compass className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="font-heading text-[15px] font-bold text-white mb-1">
-                      Practical Business Utility
-                    </h4>
-                    <p className="text-[13.5px] text-[#CBD5E1] leading-[1.6]">
-                      Every workflow, integration, and interface must deliver measurable operational efficiency or clear commercial impact.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Studio stamp */}
-              <div className="pt-4 border-t border-[#1E324B] flex items-center justify-between text-xs font-mono text-[#CBD5E1]">
-                <span className="flex items-center gap-1.5 text-white">
-                  <Users className="w-3.5 h-3.5 text-[#B88C46]" />
-                  SalesFlo Core Team
-                </span>
-                <span className="text-emerald-400">Verified Practice</span>
               </div>
             </div>
           </ScrollReveal>

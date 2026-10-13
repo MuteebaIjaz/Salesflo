@@ -41,11 +41,6 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
             </ScrollReveal>
           </div>
 
-          <ScrollReveal variant="fade-in" delay={160} className="max-w-md">
-            <p className="text-[#50647A] text-[16px] leading-[1.65]">
-              We design, engineer, and deploy high-performance digital systems for organizations ready to modernize their operations and scale.
-            </p>
-          </ScrollReveal>
         </ScrollRevealGroup>
 
         {/* Asymmetric Bento Grid Layout with Enhanced Typography */}

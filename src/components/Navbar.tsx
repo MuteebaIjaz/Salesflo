@@ -37,10 +37,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
   const navLinks = [
     { name: 'Home', href: '#home', num: '01' },
     { name: 'Services', href: '#services', num: '02' },
-    { name: 'Portfolio', href: '#portfolio', num: '03' },
-    { name: 'About', href: '#about', num: '04' },
-    { name: 'Process', href: '#process', num: '05' },
-    { name: 'Contact', href: '#contact', num: '06' },
+    { name: 'About', href: '#about', num: '03' },
+    { name: 'Process', href: '#process', num: '04' },
+    { name: 'Contact', href: '#contact', num: '05' },
   ];
 
   const handleNavClick = (
@@ -109,13 +108,9 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection }) => {
                     : 'text-[#50647A] hover:text-[#101E2D] hover:bg-white/60'
                 }`}
               >
-                <span className="font-mono text-[11px] text-[#B88C46] mr-1.5 opacity-70 group-hover:opacity-100 transition-opacity">
-                  {link.num}
-                </span>
+         
                 <span>{link.name}</span>
-                {isActive && (
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#B88C46] ml-1.5 align-middle" />
-                )}
+          
               </a>
             );
           })}
